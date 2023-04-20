@@ -37,6 +37,18 @@ function Carlist() {
             , width: 120}
     ])
 
+    const getCars = () => {
+        fetch(API_URL + '/cars')
+        .then(response => {
+            if (response.ok)
+                return  response.json();
+            else
+                alert('Something went wrong in GET request');
+        })
+        .then(data => setCars(data._embedded.cars))
+        .catch(err => console.error(err))
+    };
+
     const deleteCar= (params) => {
         if (window.confirm('Are you sure?')) {
             fetch(params.data._links.car.href, { method: 'DELETE'})
@@ -52,20 +64,8 @@ function Carlist() {
             })
             .catch(err => console.error(err))
         } 
-    }
+    };
     
-    const getCars = () => {
-        fetch(API_URL + '/cars')
-        .then(response => {
-            if (response.ok)
-                return  response.json();
-            else
-                alert('Something went wrong in GET request');
-        })
-        .then(data => setCars(data._embedded.cars))
-        .catch(err => console.error(err))
-    }
-
     const addCar = (car) => {
         fetch(API_URL + 'cars', {
             method: 'POST', 
