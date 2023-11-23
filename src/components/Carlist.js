@@ -40,10 +40,12 @@ function Carlist() {
     const getCars = () => {
         fetch(API_URL + '/cars')
         .then(response => {
-            if (response.ok)
+            if (response.ok) {
                 return  response.json();
-            else
+            }    
+            else {
                 alert('Something went wrong in GET request');
+            }    
         })
         .then(data => setCars(data._embedded.cars))
         .catch(err => console.error(err))
